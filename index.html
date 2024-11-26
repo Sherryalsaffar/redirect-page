@@ -3,26 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirecting...</title>
-</head>
-<body>
+    <title>Survey Redirect</title>
     <script>
+        // Step 1: Set up a function to get a random survey link
         async function redirect() {
             try {
-                const response = await fetch('https://hooks.zapier.com/hooks/catch/20832508/2iohz31/', {
-                    method: 'POST',
+                // URL of the Webhook that triggers your Zap
+                const webhookUrl = 'https://hooks.zapier.com/hooks/catch/20832508/2iuz0ua/';
+                
+                // Step 2: Call the webhook to trigger the randomization
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',  // Using POST to trigger the code in your Zap
                 });
+
+                // Step 3: Get the response which contains the randomly selected URL
                 const data = await response.json();
-                if (data.redirectURL) {
-                    window.location.href = data.redirectURL;
+
+                if (data.selectedURL) {
+                    // Step 4: Redirect the user to the selected survey URL
+                    window.location.href = data.selectedURL;
                 } else {
-                    console.error('No redirectURL provided in the response');
+                    console.error('No redirect URL received');
                 }
             } catch (error) {
                 console.error('Error during redirection:', error);
             }
         }
-        redirect();
+
+        // Call the redirect function when the page loads
+        window.onload = redirect;
     </script>
+</head>
+<body>
+    <h1>Redirecting to the survey...</h1>
 </body>
 </html>
+
+

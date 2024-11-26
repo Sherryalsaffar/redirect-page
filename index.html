@@ -1,19 +1,27 @@
-async function redirect() {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+</head>
+<body>
+    <h1>Redirecting to the survey...</h1>
+    <script>
+        async function redirect() {
             try {
                 const webhookUrl = 'https://hooks.zapier.com/hooks/catch/20832508/2iuz0ua/';
-                
                 console.log("Starting redirect function"); // Log script start
                 console.log("Webhook URL being fetched:", webhookUrl);
-
+                
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
                 });
-
+                
                 console.log("Raw response:", response);
-
                 const data = await response.json();
                 console.log("Parsed JSON response:", data);
-
+                
                 if (data.selectedURL) {
                     console.log("Redirecting to:", data.selectedURL);
                     window.location.href = data.selectedURL;
@@ -26,7 +34,6 @@ async function redirect() {
         }
 
         window.onload = redirect;
+    </script>
 </body>
 </html>
-
-
